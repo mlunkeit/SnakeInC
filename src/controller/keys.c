@@ -1,13 +1,10 @@
-#ifndef KEYS_C
-#define KEYS_C
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <termios.h>
 
 #include "enums.h"
-#include "keys.h"
+#include "controller/keys.h"
 
 void set_terminal_mode() {
     struct termios new_settings;
@@ -24,7 +21,7 @@ void reset_terminal_mode() {
     tcsetattr(STDIN_FILENO, TCSANOW, &new_settings);
 }
 
-void start_listening(void (*callback)(Direction))
+void startListening(void (*callback)(Direction))
 {
   char ch;
   set_terminal_mode();
@@ -62,5 +59,3 @@ void start_listening(void (*callback)(Direction))
     }
   }
 }
-
-#endif

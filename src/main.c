@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "enums.h"
-#include "keys.h"
+#include "controller/keys.h"
 
 #define clear() printf("\033[H\033[J")
 #define setCursorPos(x,y) printf("\033[%d;%dH", (y), (x))

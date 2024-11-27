@@ -1,0 +1,6 @@
+
+void drawBackground()
+{
+	clear();
+
+}
