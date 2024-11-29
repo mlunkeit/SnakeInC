@@ -3,14 +3,16 @@
 #include "enums.h"
 #include "controller/keys.h"
 
-#define clear() printf("\033[H\033[J")
-#define setCursorPos(x,y) printf("\033[%d;%dH", (y), (x))
+#include "view/utils.h"
+#include "view/background.h"
 
-void onInput(Direction direction)
+void onInput(const Direction direction)
 {
-  clear();
+  clear_screen();
   
-  setCursorPos(5, 5);
+  set_cursor_pos(5, 5);
+
+  set_text_color(TEXT_RED);
 
   switch(direction)
   {
@@ -31,12 +33,13 @@ void onInput(Direction direction)
       break;
   }
   
-  setCursorPos(1, 1);
+  set_cursor_pos(1, 1);
 }
 
 int main()
 {
-	clear();
+	clear_screen();
+	draw_background();
 	startListening(onInput);
 	return 0;
 }
