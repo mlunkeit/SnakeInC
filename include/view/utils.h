@@ -1,5 +1,5 @@
-#ifndef MODEL_UTILS_H
-#define MODEL_UTILS_H
+#ifndef VIEW_UTILS_H
+#define VIEW_UTILS_H
 
 #define TEXT_RED "\033[31m"
 #define TEXT_GREEN "\033[32m"
@@ -14,6 +14,12 @@ typedef struct Dimension
 	int width;
 	int height;
 } Dimension;
+
+typedef struct Point
+{
+	int x;
+	int y;
+} Point;
 
 void get_window_size(Dimension* dimension);
 

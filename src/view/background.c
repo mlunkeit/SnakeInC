@@ -22,4 +22,22 @@ void draw_background()
 		set_cursor_pos(i, 1);
 		printf("═");
 	}
+
+	for (int i = 2; i < size.width; i++)
+	{
+		set_cursor_pos(i, size.height);
+		printf("═");
+	}
+
+	for (int i = 2; i < size.height; i++)
+	{
+		set_cursor_pos(1, i);
+		printf("║");
+	}
+
+	for (int i = 2; i < size.height; i++)
+	{
+		set_cursor_pos(size.width, i);
+		printf("║");
+	}
 }

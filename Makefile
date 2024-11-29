@@ -11,7 +11,7 @@ INCDIR = include
 TARGET = ${BUILDDIR}/snake
 
 # Quellcodedateien finden (auch main.c im src/ Verzeichnis)
-SRC = $(wildcard $(SRCDIR)/*.c) $(wildcard $(SRCDIR)/controller/*.c) $(wildcard $(SRCDIR)/view/*.c)
+SRC = $(wildcard $(SRCDIR)/*.c) $(wildcard $(SRCDIR)/controller/*.c) $(wildcard $(SRCDIR)/model/*.c) $(wildcard $(SRCDIR)/view/*.c)
 OBJ = $(patsubst $(SRCDIR)/%.c, $(BUILDDIR)/%.o, $(SRC))
 
 # Hauptregel
@@ -20,6 +20,10 @@ all: $(TARGET)
 # Ziel erstellen
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
+
+$(BUILDDIR)/view/%.o: $(SRCDIR)/model/%.c
+	@mkdir -p $(BUILDDIR)/model
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Regel zum Erstellen von Objektdateien
 $(BUILDDIR)/view/%.o: $(SRCDIR)/view/%.c
