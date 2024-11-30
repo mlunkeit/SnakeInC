@@ -40,6 +40,6 @@ int main()
 {
 	clear_screen();
 	draw_background();
-	startListening(onInput);
+	start_listening(onInput);
 	return 0;
 }

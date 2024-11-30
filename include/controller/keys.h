@@ -1,8 +1,8 @@
-#ifndef KEYS_H
-#define KEYS_H
+#ifndef CONTROLLER_KEYS_H
+#define CONTROLLER_KEYS_H
 
 #include "enums.h"
 
-void startListening(void (*callback)(Direction));
+void start_listening(void (*callback)(Direction));
 
 #endif
