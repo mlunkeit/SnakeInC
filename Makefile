@@ -21,7 +21,7 @@ all: $(TARGET)
 $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
-$(BUILDDIR)/view/%.o: $(SRCDIR)/model/%.c
+$(BUILDDIR)/model/%.o: $(SRCDIR)/model/%.c
 	@mkdir -p $(BUILDDIR)/model
 	$(CC) $(CFLAGS) -c $< -o $@
 

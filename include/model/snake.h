@@ -19,6 +19,8 @@ typedef struct Snake
 {
   int length;
 
+  SnakeNode *beforeCurrent;
+
   SnakeNode *head;
   SnakeNode *last;
 } Snake;
@@ -32,5 +34,7 @@ void snake_move(Snake *snake, Direction *direction);
 void snake_append(Snake *snake, Direction *direction);
 
 char snake_contains(Snake *snake, int x, int y);
+
+char snake_lost(Snake *snake);
 
 #endif //MODEL_SNAKE_H

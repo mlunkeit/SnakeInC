@@ -15,12 +15,6 @@ typedef struct Dimension
 	int height;
 } Dimension;
 
-typedef struct Point
-{
-	int x;
-	int y;
-} Point;
-
 void get_window_size(Dimension* dimension);
 
 void clear_screen();
