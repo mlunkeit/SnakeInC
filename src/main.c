@@ -9,7 +9,9 @@
 void onInput(const Direction direction)
 {
   clear_screen();
-  
+
+  draw_background();
+
   set_cursor_pos(5, 5);
 
   set_text_color(TEXT_RED);

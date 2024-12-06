@@ -21,9 +21,9 @@ void reset_terminal_mode() {
     tcsetattr(STDIN_FILENO, TCSANOW, &new_settings);
 }
 
-void startListening(void (*callback)(Direction))
+void start_listening(void (*callback)(Direction))
 {
-  char ch;
+  int ch;
   set_terminal_mode();
   
   while(1)
@@ -54,6 +54,8 @@ void startListening(void (*callback)(Direction))
           case 'D':
             callback(WEST);
             break;
+
+          default: break;
         }
       }
     }
