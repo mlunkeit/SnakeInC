@@ -20,6 +20,8 @@ void snake_init(Snake *snake, const int x, const int y)
   snake->head->prev = NULL;
   snake->last->next = NULL;
   snake->last->prev = snake->head;
+
+  snake->direction = EAST;
 }
 
 void snake_iterate(const Snake *snake, void (*iterate)(int, int))
@@ -32,9 +34,9 @@ void snake_iterate(const Snake *snake, void (*iterate)(int, int))
   }
 }
 
-void snake_move(Snake *snake, const Direction *direction)
+void snake_move(Snake *snake)
 {
-  const int dir = *direction;
+  const int dir = snake->direction;
   const char hasMinus = (dir / 2) % 2 == 0;
 
   const int delta_x = (dir % 2) * (hasMinus ? 1 : -1);
@@ -56,9 +58,9 @@ void snake_move(Snake *snake, const Direction *direction)
   snake->head = newHead;
 }
 
-void snake_append(Snake *snake, const Direction *direction)
+void snake_append(Snake *snake)
 {
-  const int dir = *direction;
+  const int dir = snake->direction;
   const char hasMinus = (dir / 2) % 2 == 0;
 
   const int delta_x = (dir % 2) * (hasMinus ? 1 : -1);
@@ -76,7 +78,7 @@ void snake_append(Snake *snake, const Direction *direction)
   snake->head = newHead;
 }
 
-char snake_contains(Snake *snake, int x, int y)
+char snake_contains(const Snake *snake, int x, int y)
 {
   SnakeNode *current = snake->head->next;
 
@@ -90,9 +92,11 @@ char snake_contains(Snake *snake, int x, int y)
   return 0;
 }
 
-char snake_lost(const Snake *snake)
+char snake_lost(const Snake *snake, const Dimension *dimension)
 {
-  return snake_contains(snake, snake->head->x, snake->head->y);
+  return snake_contains(snake, snake->head->x, snake->head->y) ||
+    snake->head->x <= 1 || snake->head->y <= 1 ||
+      snake->head->x >= dimension->width || snake->head->y >= dimension->height;
 }
 
 void snake_clear(const Snake *snake)

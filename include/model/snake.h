@@ -6,6 +6,7 @@
 #define MODEL_SNAKE_H
 
 #include "enums.h"
+#include "view/utils.h"
 
 typedef struct SnakeNode
 {
@@ -18,12 +19,12 @@ typedef struct SnakeNode
 
 typedef struct Snake
 {
-  int length;
-
   SnakeNode *beforeCurrent;
 
   SnakeNode *head;
   SnakeNode *last;
+
+  Direction direction;
 } Snake;
 
 /**
@@ -43,13 +44,13 @@ void snake_init(Snake *snake, int x, int y);
  */
 void snake_iterate(const Snake *snake, void (*iterate)(int, int));
 
-void snake_move(Snake *snake, const Direction *direction);
+void snake_move(Snake *snake);
 
-void snake_append(Snake *snake, const Direction *direction);
+void snake_append(Snake *snake);
 
-char snake_contains(Snake *snake, int x, int y);
+char snake_contains(const Snake *snake, int x, int y);
 
-char snake_lost(const Snake *snake);
+char snake_lost(const Snake *snake, const Dimension *size);
 
 void snake_clear(const Snake *snake);
 

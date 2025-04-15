@@ -7,7 +7,7 @@
 #include "model/snake.h"
 #include "enums.h"
 
-Direction direction = EAST;
+Dimension dimension;
 Snake snake;
 
 void paint_snake_tile(const int x, const int y)
@@ -20,29 +20,28 @@ void paint_snake_tile(const int x, const int y)
 
 void painter_init()
 {
-    Dimension size;
-    get_window_size(&size);
+    get_window_size(&dimension);
 
-    snake_init(&snake, size.width/2, size.height/2);
+    snake_init(&snake, dimension.width/2, dimension.height/2);
 }
 
 void painter_loop()
 {
-    snake_append(&snake, &direction);
+    snake_append(&snake);
 
     clear_screen();
 
     set_text_color(TEXT_WHITE);
-    draw_background();
+    draw_background(&dimension);
 
-    set_text_color(TEXT_RED);
+    set_text_color(TEXT_GREEN);
     snake_iterate(&snake, paint_snake_tile);
 
-    if (snake_lost(&snake))
+    if (snake_lost(&snake, &dimension))
         exit(0);
 }
 
 void painter_handle_button(const Direction dir)
 {
-    direction = dir;
+    snake.direction = dir;
 }

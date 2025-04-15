@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <pthread.h>
 #include <controller/keys.h>
@@ -32,6 +33,8 @@ void *listen_for_input()
 
 int main()
 {
+  srand(time(NULL));
+
   painter_init();
 
   pthread_t thread[2];
