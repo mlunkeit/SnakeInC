@@ -13,6 +13,7 @@ typedef struct SnakeNode
   int y;
 
   struct SnakeNode *next;
+  struct SnakeNode *prev;
 } SnakeNode;
 
 typedef struct Snake
@@ -25,16 +26,31 @@ typedef struct Snake
   SnakeNode *last;
 } Snake;
 
-void snake_init(Snake *snake);
+/**
+ * Initializes the snake at the given position
+ *
+ * @param snake a pointer to the snake to initialize
+ * @param x the x coordinate
+ * @param y the y coordinate
+ */
+void snake_init(Snake *snake, int x, int y);
 
-void snake_iterate(Snake *snake, void (*iterate)(int, int));
+/**
+ * Iterates through all snake nodes starting at the head
+ *
+ * @param snake a pointer to the snake to iterate through
+ * @param iterate an iterator function that takes the coordinates of the SnakeNode
+ */
+void snake_iterate(const Snake *snake, void (*iterate)(int, int));
 
-void snake_move(Snake *snake, Direction *direction);
+void snake_move(Snake *snake, const Direction *direction);
 
-void snake_append(Snake *snake, Direction *direction);
+void snake_append(Snake *snake, const Direction *direction);
 
 char snake_contains(Snake *snake, int x, int y);
 
-char snake_lost(Snake *snake);
+char snake_lost(const Snake *snake);
+
+void snake_clear(const Snake *snake);
 
 #endif //MODEL_SNAKE_H

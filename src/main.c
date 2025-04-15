@@ -1,47 +1,46 @@
 #include <stdio.h>
+#include <unistd.h>
+#include <pthread.h>
+#include <controller/keys.h>
 
 #include "enums.h"
-#include "controller/keys.h"
 
 #include "view/utils.h"
 #include "view/background.h"
+#include "view/painter.h"
 
-void onInput(const Direction direction)
+void *begin_painter_loop()
 {
-  clear_screen();
+  struct timespec ts;
+  ts.tv_sec = 0;
+  ts.tv_nsec = 100000000;
 
-  draw_background();
+  nanosleep(&ts, NULL);
 
-  set_cursor_pos(5, 5);
-
-  set_text_color(TEXT_RED);
-
-  switch(direction)
+  while (1)
   {
-    case NORTH:
-      printf("Oben");
-      break;
-      
-    case EAST:
-      printf("Rechts");
-      break;
-      
-    case SOUTH:
-      printf("Unten");
-      break;
-      
-    case WEST:
-      printf("Links");
-      break;
+    painter_loop();
+    nanosleep(&ts, NULL);
   }
-  
-  set_cursor_pos(1, 1);
+}
+
+void *listen_for_input()
+{
+  start_listening(painter_handle_button);
+  return 0;
 }
 
 int main()
 {
-	clear_screen();
-	draw_background();
-	start_listening(onInput);
+  painter_init();
+
+  pthread_t thread[2];
+
+  pthread_create(&thread[0], NULL, begin_painter_loop, NULL);
+  pthread_create(&thread[1], NULL, listen_for_input, NULL);
+
+  pthread_join(thread[0], NULL);
+  pthread_join(thread[1], NULL);
+
 	return 0;
 }
