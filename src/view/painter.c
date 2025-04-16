@@ -29,20 +29,24 @@ void painter_init()
     get_window_size(&dimension);
 
     game_init(&game, &dimension);
+
+    clear_screen();
+    draw_background(&dimension);
 }
 
 void painter_loop()
 {
+    set_text_color(STYLE_RESET);
+
+    snake_iterate(game.snake, paint_snake_tile);
+
     game_tick(&game);
 
-    clear_screen();
-
     set_text_color(TEXT_WHITE);
-    draw_background(&dimension);
 
     set_cursor_pos(3,1);
 
-    set_text_color(TEXT_BLACK);
+    set_text_color(TEXT_BRIGHT_WHITE);
     set_text_color(STYLE_BOLD);
 
     printf(" Score: %d ", game.score);
@@ -71,5 +75,6 @@ void painter_loop()
 
 void painter_handle_button(const Direction dir)
 {
-    game.snake->direction = dir;
+    if (game.snake->direction % 2 != dir % 2)
+        game.snake->direction = dir;
 }
