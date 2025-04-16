@@ -4,10 +4,6 @@
 #include <pthread.h>
 #include <controller/keys.h>
 
-#include "enums.h"
-
-#include "view/utils.h"
-#include "view/background.h"
 #include "view/painter.h"
 
 void *begin_painter_loop()
