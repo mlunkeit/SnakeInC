@@ -14,7 +14,7 @@ void *begin_painter_loop()
 {
   struct timespec ts;
   ts.tv_sec = 0;
-  ts.tv_nsec = 100000000;
+  ts.tv_nsec = 200000000;
 
   nanosleep(&ts, NULL);
 

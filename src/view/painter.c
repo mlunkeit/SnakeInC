@@ -15,7 +15,7 @@ Dimension dimension;
 void paint_snake_tile(const int x, const int y)
 {
     set_cursor_pos(x, y);
-    printf("#");
+    printf(" ");
 }
 
 void paint_apple(Apple *apple)
@@ -40,11 +40,18 @@ void painter_loop()
     set_text_color(TEXT_WHITE);
     draw_background(&dimension);
 
-    set_text_color(TEXT_GREEN);
+    set_text_color(BG_BRIGHT_GREEN);
     snake_iterate(game.snake, paint_snake_tile);
 
+    set_text_color(BG_GREEN);
+    paint_snake_tile(game.snake->head->x, game.snake->head->y);
+
+    set_text_color(STYLE_RESET);
+
+    set_text_color(STYLE_BOLD);
     set_text_color(TEXT_RED);
     paint_apple(game.apple);
+
 
     set_cursor_pos(1,1);
 

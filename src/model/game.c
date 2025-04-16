@@ -16,7 +16,8 @@ void place_apple_randomly(Game *game)
         game->apple->y = rand() % (game->size->height - 2) + 1;
     }
     while (snake_contains(game->snake, game->apple->x, game->apple->y) ||
-        (game->snake->head->x == game->apple->x && game->snake->head->y == game->apple->y));
+        (game->snake->head->x == game->apple->x && game->snake->head->y == game->apple->y) ||
+        game->apple->x <= 1 || game->apple->y <= 1 || game->apple->x >= game->size->width || game->apple->y >= game->size->height);
 }
 
 void game_init(Game *game, Dimension *size)
