@@ -5,6 +5,8 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <stdbool.h>
+
 #include "model/snake.h"
 #include "model/apple.h"
 #include "view/utils.h"
@@ -20,6 +22,8 @@ void game_init(Game *game, Dimension *size);
 
 void game_tick(Game *game);
 
-char game_over(Game *game);
+bool game_over(Game *game);
+
+void game_free(Game *game);
 
 #endif //GAME_H

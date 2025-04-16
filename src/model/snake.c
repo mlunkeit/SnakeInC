@@ -78,28 +78,28 @@ void snake_append(Snake *snake)
   snake->head = newHead;
 }
 
-char snake_contains(const Snake *snake, int x, int y)
+bool snake_contains(const Snake *snake, int x, int y)
 {
   SnakeNode *current = snake->head->next;
 
   while (current != NULL)
   {
     if (current->x == x && current->y == y)
-      return 1;
+      return true;
     current = current->next;
   }
 
-  return 0;
+  return false;
 }
 
-char snake_lost(const Snake *snake, const Dimension *dimension)
+bool snake_lost(const Snake *snake, const Dimension *size)
 {
   return snake_contains(snake, snake->head->x, snake->head->y) ||
     snake->head->x <= 1 || snake->head->y <= 1 ||
-      snake->head->x >= dimension->width || snake->head->y >= dimension->height;
+      snake->head->x >= size->width || snake->head->y >= size->height;
 }
 
-void snake_clear(const Snake *snake)
+void snake_free(const Snake *snake)
 {
   SnakeNode *current = snake->head;
   while (current != NULL)

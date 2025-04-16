@@ -8,17 +8,29 @@
 
 #include <stdlib.h>
 
+void place_apple_randomly(Game *game)
+{
+    do
+    {
+        game->apple->x = rand() % (game->size->width - 2) + 1;
+        game->apple->y = rand() % (game->size->height - 2) + 1;
+    }
+    while (snake_contains(game->snake, game->apple->x, game->apple->y) ||
+        (game->snake->head->x == game->apple->x && game->snake->head->y == game->apple->y));
+}
+
 void game_init(Game *game, Dimension *size)
 {
+    game->size = size;
+
     Snake *snake = malloc(sizeof(Snake));
     game->snake = snake;
-
-    Apple *apple = malloc(sizeof(Apple));
-    apple->x = rand() % (size->width - 2) + 1;
-    apple->y = rand() % (size->height - 2) + 1;
-    game->apple = apple;
-
     snake_init(snake, size->width/2, size->height/2);
+
+    game->apple = malloc(sizeof(Apple));
+    game->apple->x = 0;
+    game->apple->y = 0;
+    place_apple_randomly(game);
 }
 
 void game_tick(Game *game)
@@ -26,12 +38,22 @@ void game_tick(Game *game)
     if (game->snake->head->x == game->apple->x && game->snake->head->y == game->apple->y)
     {
         snake_append(game->snake);
-
-        game->apple->x = rand() % (game->size->width - 2) + 1;
-        game->apple->y = rand() % (game->size->height - 2) + 1;
+        place_apple_randomly(game);
     }
     else
     {
         snake_move(game->snake);
     }
+}
+
+bool game_over(Game *game)
+{
+    return snake_lost(game->snake, game->size);
+}
+
+void game_free(Game *game)
+{
+    snake_free(game->snake);
+    free(game->snake);
+    free(game->apple);
 }

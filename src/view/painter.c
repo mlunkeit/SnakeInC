@@ -5,29 +5,35 @@
 #include "view/utils.h"
 #include "view/painter.h"
 #include "model/snake.h"
+#include "model/apple.h"
+#include "model/game.h"
 #include "enums.h"
 
+Game game;
 Dimension dimension;
-Snake snake;
 
 void paint_snake_tile(const int x, const int y)
 {
     set_cursor_pos(x, y);
     printf("#");
+}
 
-    set_cursor_pos(1,1);
+void paint_apple(Apple *apple)
+{
+    set_cursor_pos(apple->x, apple->y);
+    printf("O");
 }
 
 void painter_init()
 {
     get_window_size(&dimension);
 
-    snake_init(&snake, dimension.width/2, dimension.height/2);
+    game_init(&game, &dimension);
 }
 
 void painter_loop()
 {
-    snake_append(&snake);
+    game_tick(&game);
 
     clear_screen();
 
@@ -35,13 +41,18 @@ void painter_loop()
     draw_background(&dimension);
 
     set_text_color(TEXT_GREEN);
-    snake_iterate(&snake, paint_snake_tile);
+    snake_iterate(game.snake, paint_snake_tile);
 
-    if (snake_lost(&snake, &dimension))
+    set_text_color(TEXT_RED);
+    paint_apple(game.apple);
+
+    set_cursor_pos(1,1);
+
+    if (game_over(&game))
         exit(0);
 }
 
 void painter_handle_button(const Direction dir)
 {
-    snake.direction = dir;
+    game.snake->direction = dir;
 }
