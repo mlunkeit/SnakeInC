@@ -40,6 +40,15 @@ void painter_loop()
     set_text_color(TEXT_WHITE);
     draw_background(&dimension);
 
+    set_cursor_pos(3,1);
+
+    set_text_color(TEXT_BLACK);
+    set_text_color(STYLE_BOLD);
+
+    printf(" Score: %d ", game.score);
+
+    set_text_color(STYLE_RESET);
+
     set_text_color(BG_BRIGHT_GREEN);
     snake_iterate(game.snake, paint_snake_tile);
 
@@ -52,6 +61,7 @@ void painter_loop()
     set_text_color(TEXT_RED);
     paint_apple(game.apple);
 
+    set_text_color(STYLE_RESET);
 
     set_cursor_pos(1,1);
 

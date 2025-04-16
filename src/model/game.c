@@ -24,6 +24,8 @@ void game_init(Game *game, Dimension *size)
 {
     game->size = size;
 
+    game->score = 0;
+
     Snake *snake = malloc(sizeof(Snake));
     game->snake = snake;
     snake_init(snake, size->width/2, size->height/2);
@@ -40,6 +42,7 @@ void game_tick(Game *game)
     {
         snake_append(game->snake);
         place_apple_randomly(game);
+        game->score++;
     }
     else
     {

@@ -16,6 +16,8 @@ typedef struct Game
   Snake *snake;
   Dimension *size;
   Apple *apple;
+
+  int score;
 } Game;
 
 void game_init(Game *game, Dimension *size);
