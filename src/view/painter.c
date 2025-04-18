@@ -38,7 +38,7 @@ void painter_loop()
 {
     set_text_color(STYLE_RESET);
 
-    snake_iterate(game.snake, paint_snake_tile);
+    paint_snake_tile(game.snake->last->x, game.snake->last->y);
 
     game_tick(&game);
 
