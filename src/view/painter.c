@@ -11,24 +11,27 @@
 
 Game game;
 Dimension dimension;
+Dimension game_dimension;
 
 void paint_snake_tile(const int x, const int y)
 {
-    set_cursor_pos(x, y);
-    printf(" ");
+    set_cursor_pos(2*x-1, y);
+    printf("  ");
 }
 
 void paint_apple(Apple *apple)
 {
-    set_cursor_pos(apple->x, apple->y);
-    printf("O");
+    set_cursor_pos(apple->x*2-1, apple->y);
+    printf("  ");
 }
 
 void painter_init()
 {
     get_window_size(&dimension);
+    game_dimension = dimension;
+    game_dimension.width = dimension.width/2;
 
-    game_init(&game, &dimension);
+    game_init(&game, &game_dimension);
 
     clear_screen();
     draw_background(&dimension);
@@ -61,8 +64,7 @@ void painter_loop()
 
     set_text_color(STYLE_RESET);
 
-    set_text_color(STYLE_BOLD);
-    set_text_color(TEXT_RED);
+    set_text_color(BG_RED);
     paint_apple(game.apple);
 
     set_text_color(STYLE_RESET);
