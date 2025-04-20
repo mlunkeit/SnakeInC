@@ -1,3 +1,5 @@
+#!/bin/bash
+
 PROGRAM_NAME="snake"
 PROGRAM_DIR="$HOME/.$PROGRAM_NAME"
 
@@ -16,8 +18,6 @@ TEXT_RED="\033[31m"
 
 TEXT_BRIGHT_GREEN="\033[92m"
 
-BG_BLUE="\033[44m"
-
 STYLE_RESET="\033[0m"
 
 # A list of files where to edit the PATH variable
@@ -27,18 +27,18 @@ PATH_LINE="export PATH=\"$PROGRAM_DIR/bin:\$PATH\""
 
 error()
 {
-  echo "$TEXT_RED$1"
+  echo -e "$TEXT_RED$1"
   exit
 }
 
 display_step_header()
 {
   echo ""
-  echo " $TEXT_BLUE($1/$2) $3$STYLE_RESET"
+  echo -e " $TEXT_BLUE($1/$2) $3$STYLE_RESET"
   echo ""
 }
 
-echo "$TEXT_BLUE"
+echo -e "$TEXT_BLUE"
 
 echo "           _             _        _ _        _"
 echo "          | |           | |      (_) |      | |"
@@ -47,7 +47,7 @@ echo "| '_ \` _ \| | | | | '_ \| |/ / _ \ | __| / _\` |/ _ \ \ / /"
 echo "| | | | | | | |_| | | | |   <  __/ | |_ | (_| |  __/\ V /"
 echo "|_| |_| |_|_|\__,_|_| |_|_|\_\___|_|\__(_)__,_|\___| \_/"
 
-echo "$STYLE_RESET"
+echo -e "$STYLE_RESET"
 
 if [ ! -d "$PROGRAM_DIR" ]; then
   mkdir "$PROGRAM_DIR"
@@ -89,4 +89,4 @@ rm -r "$GH_REPO-$GH_BRANCH"
 rm $PROGRAM_NAME.tar.gz
 
 echo ""
-echo "$TEXT_BRIGHT_GREEN Done! Please restart your terminal to use $PROGRAM_NAME."
+echo -e "$TEXT_BRIGHT_GREEN Done! Please restart your terminal to use $PROGRAM_NAME."
